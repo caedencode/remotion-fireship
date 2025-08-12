@@ -1,4 +1,4 @@
-import Highlight, { defaultProps } from "prism-react-renderer";
+import {Highlight} from "prism-react-renderer";
 import { View } from "react-native";
 
 import { theme } from "./oneDark";
@@ -59,7 +59,7 @@ export const Code = ({ source, fontSize, minWidth, yOffset }: CodeProps) => {
           display: "flex",
         }}
       >
-        <Highlight {...defaultProps} code={source} language="jsx" theme={theme}>
+        <Highlight code={source} language="jsx" theme={theme}>
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <pre
               className={className}
