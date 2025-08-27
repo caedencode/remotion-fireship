@@ -6,7 +6,8 @@ import {
   random,
   useCurrentFrame,
 } from "remotion";
-import SimplexNoise from "simplex-noise";
+import { createNoise2D } from "simplex-noise";
+import alea from "alea";
 
 const Dot: React.FC<{
   size: number;
@@ -43,12 +44,12 @@ export const Thunderstorm: React.FC = () => {
         .map((_, i) => {
           const amount = Math.round(interpolate(i, [0, 100], [10, 30]));
           return new Array(amount).fill(true).map((__, j) => {
-            const noiseY = new SimplexNoise(`y${i}${j}`);
+            const noiseY = createNoise2D(alea(`y${i}${j}`));
             const size = random(`y${i}${j}`) * 150;
 
             const xPosNoise =
-              new SimplexNoise(`x${i}${j}`).noise2D(frame / 40, 0) * 50;
-            const yPosNoise = noiseY.noise2D(frame / 40, 0) * 50;
+              createNoise2D(alea(`x${i}${j}`))(frame / 40, 0) * 50;
+            const yPosNoise = noiseY(frame / 40, 0) * 50;
             const position = interpolate(i, [0, 100], [0, 1]);
             const sinOffset =
               Math.sin(position * Math.PI * 2 + frame / 2) * 100;
